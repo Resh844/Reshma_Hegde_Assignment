@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AccuKnox AI/ML Trainee - Assignment Dashboard</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        min-height: 100vh;
+        padding: 20px;
+        color: #1f2937;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    header {
+        text-align: center;
+        color: #e5e7eb;
+        margin-bottom: 40px;
+    }
+
+    header h1 {
+        font-size: 2.4em;
+        margin-bottom: 10px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    header p {
+        font-size: 1.05em;
+        opacity: 0.9;
+    }
+    .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    }
+
+    .tasks-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .task-card {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 28px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .task-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .task-card h2 {
+        color: #1e3a8a;
+        margin-bottom: 15px;
+        font-size: 1.45em;
+    }
+
+    .task-card p {
+        color: #4b5563;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .task-number {
+        display: inline-block;
+        background: linear-gradient(135deg, #1e3a8a, #2563eb);
+        color: white;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 42px;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    .input-group {
+    margin-bottom: 20px; 
+    }
+
+    .input-group label {
+        margin-bottom: 6px;
+        color: #1f2937;
+        font-weight: 600;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        width: 100%;
+        padding: 11px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 0.95em;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+
+    button {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        color: #ffffff;
+        padding: 12px 26px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.95em;
+        font-weight: 600;
+        transition: all 0.25s ease;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    button.secondary {
+        background: linear-gradient(135deg, #14b8a6, #0f766e);
+    }
+
+    .results-section {
+        background: #f9fafb;
+        border-left: 4px solid #2563eb;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+        display: none;
+    }
+
+    .results-section.active {
+        display: block;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin: 15px 0;
+    }
+
+    .stat-box {
+        background: #ffffff;
+        padding: 16px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #e5e7eb;
+    }
+
+    .stat-box .value {
+        font-size: 1.7em;
+        font-weight: 700;
+        color: #2563eb;
+    }
+
+    table th {
+        background: #1e3a8a;
+        color: white;
+        padding: 12px;
+    }
+
+    table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    table tr:hover {
+        background: #f1f5f9;
+    }
+
+    .file-upload {
+        border: 2px dashed #2563eb;
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        cursor: pointer;
+        background: #f8fafc;
+        transition: all 0.3s ease;
+    }
+
+    .file-upload:hover {
+        background: #eef2ff;
+    }
+
+    .alert.success {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #bbf7d0;
+    }
+
+    .alert.error {
+        background: #fee2e2;
+        color: #7f1d1d;
+        border: 1px solid #fecaca;
+    }
+
+    .alert.info {
+        background: #e0f2fe;
+        color: #075985;
+        border: 1px solid #bae6fd;
+    }
+
+    @media (max-width: 768px) {
+        header h1 {
+            font-size: 1.8em;
+        }
+        .tasks-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> AccuKnox AI/ML Trainee Dashboard</h1>
+            <p>Interactive Platform to Test Tasks 1-3</p>
+        </header>
+
+        <div class="tasks-grid">
+            <!-- TASK 1: API Data Retrieval -->
+            <div class="task-card">
+                <h2><span class="task-number">1</span>API Data Retrieval</h2>
+                <p>Fetch book data from Google Books API and store in SQLite database</p>
+
+                <div class="task1-section">
+                    <div class="input-group">
+                        <label for="task1-query">Search Query:</label>
+                        <input type="text" id="task1-query" value="python programming" placeholder="Enter search query">
+                    </div>
+                    <div class="input-group">
+                        <label for="task1-count">Number of Books:</label>
+                        <input type="number" id="task1-count" value="10" min="1" max="40">
+                    </div>
+                    <button onclick="task1Fetch()">📥 Fetch Books from API</button>
+                    <button onclick="task1Store()" class="secondary">💾 Store in Database</button>
+                    <button onclick="task1Display()" class="secondary">📊 Display Results</button>
+                </div>
+
+                <div id="task1-results" class="results-section">
+                    <h3>Results</h3>
+                    <div id="task1-content"></div>
+                </div>
+            </div>
+
+            <!-- TASK 2: Data Visualization -->
+            <div class="task-card">
+                <h2><span class="task-number">2</span>Data Processing</h2>
+                <p>Fetch student test scores, analyze data, and create visualizations</p>
+                <p>This Fetches new data each time</p>
+
+                <div class="task1-section">
+                    <button onclick="task2Fetch()">📥 Fetch Student Scores</button>
+                    <button onclick="task2Visualize()" class="secondary">📊 Generate Charts</button>
+                    <button onclick="task2Stats()" class="secondary">📈 Show Statistics</button>
+                </div>
+
+                <div id="task2-results" class="results-section">
+                    <h3>Results</h3>
+                    <div id="task2-content"></div>
+                </div>
+            </div>
+
+            <!-- TASK 3: CSV Import -->
+            <div class="task-card">
+                <h2><span class="task-number">3</span>CSV Import</h2>
+                <p>Import user data from CSV with validation and duplicate detection</p>
+
+                <div class="task1-section">
+                    <div class="file-upload" onclick="document.getElementById('csvFile').click()">
+                        <p>📁 Click to upload CSV file or drag and drop</p>
+                        <input type="file" id="csvFile" accept=".csv" onchange="task3Upload(event)">
+                    </div>
+                    <p style="margin-top: 15px; text-align: center; color: #666;">
+                        <a class="download-link" onclick="task3DownloadSample()">↓ Download Sample CSV</a>
+                    </p>
+                    <button onclick="task3Data()" style="margin-top: 15px;">👥 Show Imported Users</button>
+                </div>
+
+                <div id="task3-results" class="results-section">
+                    <h3>Results</h3>
+                    <div id="task3-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Utility function to show loading state
+        function showLoading(message = "Processing...") {
+            return `<div class="loading"></div>${message}`;
+        }
+
+        // TASK 1 Functions
+        function task1Fetch() {
+            const query = document.getElementById('task1-query').value;
+            const maxResults = document.getElementById('task1-count').value;
+
+            const resultsDiv = document.getElementById('task1-results');
+            resultsDiv.classList.add('active');
+            resultsDiv.innerHTML = `<div class="alert info">${showLoading('Fetching books from API...')}</div>`;
+
+            fetch('/api/task1/fetch', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query, max_results: parseInt(maxResults) })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let html = `<div class="alert success">✓ ${data.message}</div>`;
+                    html += '<div class="stats-grid">';
+                    html += `<div class="stat-box"><div class="value">${data.data.length}</div><div class="label">Books Fetched</div></div>`;
+                    html += '</div>';
+                    html += '<table><thead><tr><th>Title</th><th>Author</th><th>Year</th></tr></thead><tbody>';
+                    data.data.forEach(book => {
+                        html += `<tr><td>${book.title}</td><td>${book.author}</td><td>${book.publication_year || 'N/A'}</td></tr>`;
+                    });
+                    html += '</tbody></table>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="alert error">✗ ${data.message}</div>`;
+                }
+            })
+            .catch(e => {
+                resultsDiv.innerHTML = `<div class="alert error">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        function task1Store() {
+            const resultsDiv = document.getElementById('task1-results');
+            resultsDiv.classList.add('active');
+            resultsDiv.innerHTML = `<div class="alert info">${showLoading('Storing books in database...')}</div>`;
+
+            fetch('/api/task1/store', { method: 'POST' })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    resultsDiv.innerHTML = `<div class="alert success">✓ ${data.message}</div>
+                        <div class="stats-grid">
+                            <div class="stat-box"><div class="value">${data.count}</div><div class="label">Stored</div></div>
+                        </div>`;
+                } else {
+                    resultsDiv.innerHTML = `<div class="alert error">✗ ${data.message}</div>`;
+                }
+            })
+            .catch(e => {
+                resultsDiv.innerHTML = `<div class="alert error">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        function task1Display() {
+            const resultsDiv = document.getElementById('task1-results');
+            resultsDiv.classList.add('active');
+            resultsDiv.innerHTML = `<div class="alert info">${showLoading('Fetching from database...')}</div>`;
+
+            fetch('/api/task1/display')
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let html = `<div class="alert success">✓ Database Retrieved</div>`;
+                    html += '<div class="stats-grid">';
+                    html += `<div class="stat-box"><div class="value">${data.statistics.total_books}</div><div class="label">Total Books</div></div>`;
+                    html += `<div class="stat-box"><div class="value">${data.statistics.average_rating}</div><div class="label">Avg Rating</div></div>`;
+                    html += '</div>';
+                    html += '<div class="table-wrapper">';
+
+                    html += '<table><thead><tr><th>Title</th><th>Author</th><th>Year</th><th>Publisher</th><th>Rating</th></tr></thead><tbody>';
+                    data.books.forEach(book => {
+                        html += `<tr><td>${book.title}</td><td>${book.author}</td><td>${book.year || 'N/A'}</td><td>${book.publisher}</td><td>${book.rating || 'N/A'}</td></tr>`;
+                    });
+                    html += '</tbody></table>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="alert error">✗ ${data.message}</div>`;
+                }
+            })
+            .catch(e => {
+                resultsDiv.innerHTML = `<div class="alert error">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        // TASK 2 Functions
+        function task2Fetch() {
+            const resultsDiv = document.getElementById('task2-results');
+            resultsDiv.classList.add('active');
+            resultsDiv.innerHTML = `<div class="alert info">${showLoading('Fetching and processing student scores...')}</div>`;
+
+            fetch('/api/task2/fetch', { method: 'POST' })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let html = `<div class="alert success">✓ ${data.message}</div>`;
+                    html += '<div class="stats-grid">';
+                    html += `<div class="stat-box"><div class="value">${data.statistics.overall_average}</div><div class="label">Avg Score</div></div>`;
+                    html += `<div class="stat-box"><div class="value">${data.statistics.overall_median}</div><div class="label">Median</div></div>`;
+                    html += `<div class="stat-box"><div class="value">${data.statistics.overall_std}</div><div class="label">Std Dev</div></div>`;
+                    html += `<div class="stat-box"><div class="value">${data.statistics.min_score} - ${data.statistics.max_score}</div><div class="label">Range</div></div>`;
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="alert error">✗ ${data.message}</div>`;
+                }
+            })
+            .catch(e => {
+                resultsDiv.innerHTML = `<div class="alert error">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        function task2Visualize() {
+            const resultsDiv = document.getElementById('task2-results');
+            resultsDiv.classList.add('active');
+            resultsDiv.innerHTML = `<div class="alert info">${showLoading('Generating visualizations...')}</div>`;
+
+            fetch('/api/task2/visualize', { method: 'POST' })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let html = `<div class="alert success">✓ ${data.message}</div>`;
+                    html += '<div class="visualizations-container">';
+                    html += '<h4>📊 Visualizations:</h4>';
+                    html += '<div class="images-grid">';
+                    html += `<div class="image-card"><h5>Score Distribution Dashboard</h5><img src="${data.files.dashboard}" alt="Dashboard" style="max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onclick="openImageInNewTab('${data.files.dashboard}')"></div>`;
+                    html += `<div class="image-card"><h5>Subject & Class Comparison</h5><img src="${data.files.comparison}" alt="Comparison" style="max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"onclick="openImageInNewTab('${data.files.comparison}')"></div>`;
+                    html += '</div>';
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="alert error">✗ ${data.message}</div>`;
+                }
+            })
+            .catch(e => {
+                resultsDiv.innerHTML = `<div class="alert error">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        function openImageInNewTab(src) {
+            const newWindow = window.open();
+            newWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Visualization</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                background: #111;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100vh;
+                            }
+                            img {
+                                max-width: 95%;
+                                max-height: 95%;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <img src="${src}">
+                    </body>
+                </html>
+            `);
+            newWindow.document.close();
+        }
+
+
+        function task2Stats() {
+            const resultsDiv = document.getElementById('task2-results');
+            resultsDiv.classList.add('active');
+            resultsDiv.innerHTML = `<div class="alert info">${showLoading('Loading statistics...')}</div>`;
+
+            fetch('/api/task2/stats')
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const s = data.statistics;
+                    let html = `<div class="alert success">✓ Statistics Loaded</div>`;
+                    html += '<div class="stats-grid">';
+                    html += `<div class="stat-box"><div class="value">${s.overall_average}</div><div class="label">Average</div></div>`;
+                    html += `<div class="stat-box"><div class="value">${s.overall_median}</div><div class="label">Median</div></div>`;
+                    html += `<div class="stat-box"><div class="value">${s.std_deviation}</div><div class="label">Std Dev</div></div>`;
+                    html += `<div class="stat-box"><div class="value">${s.score_range}</div><div class="label">Range</div></div>`;
+                    html += '</div>';
+                    html += '<h4>Subject Breakdown:</h4>';
+                    html += '<table><thead><tr><th>Subject</th><th>Average</th></tr></thead><tbody>';
+                    Object.keys(s.subject_breakdown).forEach(subject => {
+                        html += `<tr><td>${subject}</td><td>${s.subject_breakdown[subject]}</td></tr>`;
+                    });
+                    html += '</tbody></table>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="alert error">✗ ${data.message}</div>`;
+                }
+            })
+            .catch(e => {
+                resultsDiv.innerHTML = `<div class="alert error">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        // TASK 3 Functions
+        function task3Upload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const resultsDiv = document.getElementById('task3-results');
+            resultsDiv.classList.add('active');
+            resultsDiv.innerHTML = `<div class="alert info">${showLoading('Uploading and importing CSV...')}</div>`;
+
+            fetch('/api/task3/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let html = `<div class="alert success">✓ ${data.message}</div>`;
+                    const stats = data.statistics;
+                    html += '<div class="stats-grid">';
+                    html += `<div class="stat-box"><div class="value">${stats.total_rows}</div><div class="label">Total Rows</div></div>`;
+                    html += `<div class="stat-box"><div class="value">${stats.imported_rows}</div><div class="label">Imported</div></div>`;
+                    html += `<div class="stat-box"><div class="value">${stats.skipped_rows}</div><div class="label">Skipped</div></div>`;
+                    html += '</div>';
+                    if (stats.errors.length > 0) {
+                        html += '<h4>Errors:</h4><ul>';
+                        stats.errors.forEach(err => {
+                            html += `<li>${err}</li>`;
+                        });
+                        html += '</ul>';
+                    }
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="alert error">✗ ${data.message}</div>`;
+                }
+            })
+            .catch(e => {
+                resultsDiv.innerHTML = `<div class="alert error">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        function task3Data() {
+            const resultsDiv = document.getElementById('task3-results');
+            resultsDiv.classList.add('active');
+            resultsDiv.innerHTML = `<div class="alert info">${showLoading('Loading imported users...')}</div>`;
+
+            fetch('/api/task3/data')
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let html = `<div class="alert success">✓ Imported Users</div>`;
+                    html += `<div class="stat-box" style="margin-bottom: 15px;"><div class="value">${data.statistics.total_users}</div><div class="label">Total Users in DB</div></div>`;
+                    html += `<div class="table-wrapper">`;
+                    html += '<table><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Department</th></tr></thead><tbody>';
+                    data.users.forEach(user => {
+                        html += `<tr><td>${user.id}</td><td>${user.name}</td><td>${user.email}</td><td>${user.phone}</td><td>${user.department}</td></tr>`;
+                    });
+                    html += '</tbody></table>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="alert error">✗ ${data.message}</div>`;
+                }
+            })
+            .catch(e => {
+                resultsDiv.innerHTML = `<div class="alert error">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        function task3DownloadSample() {
+            fetch('/api/task3/download-sample')
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'sample_users.csv';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            });
+        }
+    </script>
+</body>
+</html>

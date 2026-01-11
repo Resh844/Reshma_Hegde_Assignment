@@ -1,0 +1,51 @@
+student_id,student_name,subject,test_score,test_date,class,teacher
+1,Leanne Graham,Mathematics,70.21,2024-Q1,Class A,Romaguera-Crona
+1,Leanne Graham,Science,65.66,2024-Q2,Class A,Romaguera-Crona
+1,Leanne Graham,English,68.4,2024-Q3,Class A,Romaguera-Crona
+1,Leanne Graham,History,65.98,2024-Q4,Class A,Romaguera-Crona
+1,Leanne Graham,Computer Science,83.68,2024-Q1,Class A,Romaguera-Crona
+2,Ervin Howell,Mathematics,81.44,2024-Q1,Class B,Deckow-Crist
+2,Ervin Howell,Science,73.06,2024-Q2,Class B,Deckow-Crist
+2,Ervin Howell,English,67.81,2024-Q3,Class B,Deckow-Crist
+2,Ervin Howell,History,93.01,2024-Q4,Class B,Deckow-Crist
+2,Ervin Howell,Computer Science,79.66,2024-Q1,Class B,Deckow-Crist
+3,Clementine Bauch,Mathematics,55.98,2024-Q1,Class C,Romaguera-Jacobson
+3,Clementine Bauch,Science,64.53,2024-Q2,Class C,Romaguera-Jacobson
+3,Clementine Bauch,English,73.87,2024-Q3,Class C,Romaguera-Jacobson
+3,Clementine Bauch,History,72.23,2024-Q4,Class C,Romaguera-Jacobson
+3,Clementine Bauch,Computer Science,99.65,2024-Q1,Class C,Romaguera-Jacobson
+4,Patricia Lebsack,Mathematics,63.75,2024-Q1,Class A,Robel-Corkery
+4,Patricia Lebsack,Science,33.0,2024-Q2,Class A,Robel-Corkery
+4,Patricia Lebsack,English,78.35,2024-Q3,Class A,Robel-Corkery
+4,Patricia Lebsack,History,76.48,2024-Q4,Class A,Robel-Corkery
+4,Patricia Lebsack,Computer Science,76.41,2024-Q1,Class A,Robel-Corkery
+5,Chelsey Dietrich,Mathematics,83.9,2024-Q1,Class B,Keebler LLC
+5,Chelsey Dietrich,Science,77.99,2024-Q2,Class B,Keebler LLC
+5,Chelsey Dietrich,English,64.29,2024-Q3,Class B,Keebler LLC
+5,Chelsey Dietrich,History,71.64,2024-Q4,Class B,Keebler LLC
+5,Chelsey Dietrich,Computer Science,89.99,2024-Q1,Class B,Keebler LLC
+6,Mrs. Dennis Schulist,Mathematics,82.14,2024-Q1,Class C,Considine-Lockman
+6,Mrs. Dennis Schulist,Science,65.13,2024-Q2,Class C,Considine-Lockman
+6,Mrs. Dennis Schulist,English,99.0,2024-Q3,Class C,Considine-Lockman
+6,Mrs. Dennis Schulist,History,74.46,2024-Q4,Class C,Considine-Lockman
+6,Mrs. Dennis Schulist,Computer Science,75.75,2024-Q1,Class C,Considine-Lockman
+7,Kurtis Weissnat,Mathematics,56.75,2024-Q1,Class A,Johns Group
+7,Kurtis Weissnat,Science,68.76,2024-Q2,Class A,Johns Group
+7,Kurtis Weissnat,English,80.81,2024-Q3,Class A,Johns Group
+7,Kurtis Weissnat,History,86.3,2024-Q4,Class A,Johns Group
+7,Kurtis Weissnat,Computer Science,68.23,2024-Q1,Class A,Johns Group
+8,Nicholas Runolfsdottir V,Mathematics,61.58,2024-Q1,Class B,Abernathy Group
+8,Nicholas Runolfsdottir V,Science,99.22,2024-Q2,Class B,Abernathy Group
+8,Nicholas Runolfsdottir V,English,100.0,2024-Q3,Class B,Abernathy Group
+8,Nicholas Runolfsdottir V,History,71.71,2024-Q4,Class B,Abernathy Group
+8,Nicholas Runolfsdottir V,Computer Science,60.21,2024-Q1,Class B,Abernathy Group
+9,Glenna Reichert,Mathematics,64.54,2024-Q1,Class C,Yost and Sons
+9,Glenna Reichert,Science,63.57,2024-Q2,Class C,Yost and Sons
+9,Glenna Reichert,English,61.7,2024-Q3,Class C,Yost and Sons
+9,Glenna Reichert,History,54.8,2024-Q4,Class C,Yost and Sons
+9,Glenna Reichert,Computer Science,52.26,2024-Q1,Class C,Yost and Sons
+10,Clementina DuBuque,Mathematics,58.41,2024-Q1,Class A,Hoeger LLC
+10,Clementina DuBuque,Science,50.69,2024-Q2,Class A,Hoeger LLC
+10,Clementina DuBuque,English,52.68,2024-Q3,Class A,Hoeger LLC
+10,Clementina DuBuque,History,59.79,2024-Q4,Class A,Hoeger LLC
+10,Clementina DuBuque,Computer Science,66.43,2024-Q1,Class A,Hoeger LLC
